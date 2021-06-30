@@ -20,4 +20,8 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+          cache: "yarn"
+      - run: yarn install
       - run: yarn build && yarn start

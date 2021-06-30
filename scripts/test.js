@@ -20,8 +20,10 @@ async function main() {
       setTimeout(() => {
         console.log("Start validation");
         validateURL(URL).then((result) => {
-          fs.writeFileSync(RESULTS_FILE_PATH, JSON.stringify(result));
+          console.log("before file save");
+          //fs.writeFileSync(RESULTS_FILE_PATH, JSON.stringify(result));
           thread.kill();
+          console.log("after thread kill");
         });
       }, 1000);
     }

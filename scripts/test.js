@@ -24,6 +24,7 @@ async function main() {
           //fs.writeFileSync(RESULTS_FILE_PATH, JSON.stringify(result));
           thread.kill();
           console.log("after thread kill");
+          process.exit(1);
         });
       }, 1000);
     }

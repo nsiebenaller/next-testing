@@ -11,16 +11,20 @@ async function main() {
 
   // Start server
   const thread = spawn("npm", ["run", "start"]);
+  let starting = false;
   thread.stdout.on("data", (msg) => {
     console.log(msg.toString());
-
-    // Run validation on url (arbitrary delay)
-    setTimeout(() => {
-      validateURL(URL).then((result) => {
-        fs.writeFileSync(RESULTS_FILE_PATH, JSON.stringify(result));
-        thread.kill();
-      });
-    }, 1000);
+    if (!starting) {
+      starting = true;
+      // Run validation on url (arbitrary delay)
+      setTimeout(() => {
+        console.log("Start validation");
+        validateURL(URL).then((result) => {
+          fs.writeFileSync(RESULTS_FILE_PATH, JSON.stringify(result));
+          thread.kill();
+        });
+      }, 1000);
+    }
   });
   thread.on("close", (code) => {
     console.log(`Thread exited with code ${code}`);
@@ -29,13 +33,19 @@ async function main() {
 main();
 
 async function validateURL(url) {
-  const options = {
-    url,
-    format: "text",
-    isLocal: true,
-  };
-  const result = await validator(options);
-  return result;
+  try {
+    const options = {
+      url,
+      format: "text",
+      isLocal: true,
+    };
+    console.log("fetch results");
+    const result = await validator(options);
+    console.log("got results");
+    return result;
+  } catch (err) {
+    return err;
+  }
 }
 
 // exec("yarn start", (err, stdout, stderr) => {

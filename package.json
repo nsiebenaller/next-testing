@@ -5,12 +5,19 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "nick": "babel-node --presets next/babel --plugins @babel/plugin-proposal-optional-chaining scripts/test.js"
   },
   "dependencies": {
     "next": "10.0.8",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-select": "^4.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.7",
+    "@babel/plugin-proposal-optional-chaining": "^7.14.5",
+    "html-validator": "^5.1.17"
   }
 }

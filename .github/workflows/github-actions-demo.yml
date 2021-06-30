@@ -23,5 +23,12 @@ jobs:
         with:
           node-version: "14"
           cache: "yarn"
-      - run: yarn install
-      - run: yarn build && yarn start
+      - run: yarn --frozen-lockfile
+      - run: yarn build
+      - run: yarn nick
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v2
+        with:
+          name: results
+          path: scripts/output/results.txt
+          retention-days: 1
